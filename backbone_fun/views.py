@@ -15,7 +15,14 @@ wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 @view_config(route_name='post', request_method='GET', renderer='json')
 def show_post_view(request):
-    return request.matchdict
+    session = DBSession()
+    pages = session.query(Page).all()
+    print pages
+    list = {}
+    for page in pages:
+        list[page.name] = page.data
+        
+    return dict(pages=list,meta={})
 
 @view_config(route_name='post', request_method='DELETE', renderer='json')
 def delete_post_view(request):
