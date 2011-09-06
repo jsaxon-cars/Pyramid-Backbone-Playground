@@ -95,7 +95,7 @@ $(function() {
      function() {
       window.app.tweets.fetch();
      },
-     2000
+     20000
    );
   
 });
