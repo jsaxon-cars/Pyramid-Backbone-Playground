@@ -5,6 +5,7 @@
 *.pt.py
 *.txt.py
 *~
+.pydevproject
 .coverage
 .DS_Store
 .tox/
