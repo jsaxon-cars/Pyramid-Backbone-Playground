@@ -1,0 +1,30 @@
+{% extends "backbone_fun:templates/base_page.jinja2" %}
+
+{% block middle %}
+<div id="left" class="app-welcome align-left">
+Viewing <b>{% if page %}{{ page.name }}{% else %}Pages{% endif %}</b><br/>
+You can return to the
+<a href="{{ request.application_url }}">Front Page</a>.<br/>
+</div>
+<div id="right" class="app-welcome align-right"></div>
+{% endblock %}
+
+{% block bottom %}
+<div>
+{% if page %}{{ content }}{% endif %}
+
+{% if pages %}
+{% for page in pages %}
+<b><a href="{{ page.name }}">{{ page.name }}</a></b>
+{{ page.data }}
+<hr />
+{% endfor %}
+{% endif %}
+</div>
+{% if page %}
+<br />
+<p>
+<a href="{{ page.name }}/edit_page">Edit this page</a>
+</p>
+{% endif %}
+{% endblock %}

@@ -6,6 +6,7 @@
 *.txt.py
 *~
 .coverage
+.DS_Store
 .tox/
 nosetests.xml
 pyramid/coverage.xml
