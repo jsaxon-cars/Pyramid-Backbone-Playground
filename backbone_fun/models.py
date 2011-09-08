@@ -31,7 +31,10 @@ class Tweet(Base):
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    Base.metadata.drop_all(engine) #added this
+    
+    #This wipes out the database every time...
+    Base.metadata.drop_all(engine) 
+    
     Base.metadata.create_all(engine)
     try:
         transaction.begin()

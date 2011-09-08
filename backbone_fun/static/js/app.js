@@ -92,12 +92,13 @@ $(function() {
 
   window.app = new App();
 
- 
+   
+   // I would like to find a better way of doing this...
    setInterval(
      function() {
       window.app.tweets.fetch();
      },
-     2000
+     1000
    );
   
 });
