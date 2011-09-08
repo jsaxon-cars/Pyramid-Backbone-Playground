@@ -12,6 +12,8 @@ from pyramid.view import view_config
 from backbone_fun.models import DBSession
 from backbone_fun.models import Tweet
 
+import json
+
 # regular expression used to find WikiWords
 wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
@@ -45,17 +47,18 @@ def get_tweets():
 
 @view_config(route_name='tweet_api', request_method='POST', renderer='json')
 def post_tweet(request):
-    print request.GET.items()
-    print request.POST.items()
-    print request.params.items()
+    params = request.json_body
     try:
         transaction.begin()
         session = DBSession()
-        tweet = Tweet(request.POST['username'], request.POST['message'])
+        print "ADDING A TWEET NOW =================="
+        tweet = Tweet(params['username'], params['message'])
+        print "ADDING A TWEET NOW =================="
+        print tweet
         session.add(tweet)
         transaction.commit()
     except IntegrityError:
         # already created
         transaction.abort()  
-    return dict(error='nope')
+    return dict(error='nope',params=params)
     

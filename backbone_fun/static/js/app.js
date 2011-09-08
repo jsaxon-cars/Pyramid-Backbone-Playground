@@ -85,6 +85,7 @@ $(function() {
           username : username
         });
         this.$('#message').val('');
+        window.app.tweets.fetch();
       }
     }
   });
@@ -96,7 +97,7 @@ $(function() {
      function() {
       window.app.tweets.fetch();
      },
-     20000
+     2000
    );
   
 });

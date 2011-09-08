@@ -19,7 +19,7 @@ Base = declarative_base()
 class Tweet(Base):
     __tablename__ = 'tweets'
     id = Column(Integer, primary_key=True)
-    username = Column(Text, unique=True)
+    username = Column(Text)
     message = Column(Text)
     timestamp = Column(Text)
     
@@ -31,6 +31,7 @@ class Tweet(Base):
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
+    Base.metadata.drop_all(engine) #added this
     Base.metadata.create_all(engine)
     try:
         transaction.begin()
