@@ -1,6 +1,5 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
-from pyramid.response import Response
 
 from pyramid.view import view_config
 
@@ -12,14 +11,13 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
     config = Configurator(settings=settings)
+    
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'backbone_fun:static')
-    
-    config.add_route('post', 'post/{id:[^/\.]+}')
-
     config.add_route('tweet','tweet')   
     config.add_route('tweet_api','tweet/api/')   
  
     config.scan('backbone_fun')
+
     return config.make_wsgi_app()
 
