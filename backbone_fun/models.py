@@ -1,4 +1,5 @@
 import transaction
+from datetime import datetime
 
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -15,32 +16,29 @@ from zope.sqlalchemy import ZopeTransactionExtension
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
-class Page(Base):
-    __tablename__ = 'pages'
+class Tweet(Base):
+    __tablename__ = 'tweets'
     id = Column(Integer, primary_key=True)
-    name = Column(Text, unique=True)
-    data = Column(Text)
-    #timestamp = Column(datetime)
+    username = Column(Text, unique=True)
+    message = Column(Text)
+    timestamp = Column(Text)
     
-    def __init__(self, name, data):
-        self.name = name
-        self.data = data
-        #self.timestamp = now()
+    def __init__(self, username, message):
+        self.username = username
+        self.message = message
+        self.timestamp = datetime.now().__str__()
         
 def initialize_sql(engine):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
-    #Sets up the FrontPage if none exists.
-    #Handy...
     try:
         transaction.begin()
-        #Why this DB session garbage in the Models file???
         session = DBSession()
-        page = Page('FrontPage', 'initial data')
+        tweet = Tweet('Fred', 'Yet another tweet for fun')
         #Why session.add() instead of page.save()???
-        session.add(page)
+        session.add(tweet)
         transaction.commit()
     except IntegrityError:
         # already created
-        transaction.abort()
+        transaction.abort()        

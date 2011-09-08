@@ -19,20 +19,25 @@
         type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
     <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/style.css') }}">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script src="http://cachedcommons.org/cache/underscore/1.1.0/javascripts/underscore-min.js"></script>
     <script src="{{ request.static_url('backbone_fun:static/js/ICanHaz.min.js') }}"></script>
     <script src="{{ request.static_url('backbone_fun:static/js/backbone-min.js') }}"></script>
-    <script>
-{#      TWEET_API = "{% url api_dispatch_list resource_name="tweet" %}"; #}
+
+   <script>
+      TWEET_API = "/tweet/api/";
     </script>
+
     <script src="{{ request.static_url('backbone_fun:static/js/app.js') }}"></script>
 
+    {% raw %}
     <script type="text/html" id="tweetTemplate">
-      <a class="username">USER</a> - Message
-      <br /><abbr class="timestamp">timestamp</abbr>
+      <a class="username">{{ username }}</a> - {{ message }}
+      <br /><abbr class="timestamp">{{ timestamp }}</abbr>
     </script>
+    {% endraw %}
 
 
 </head>
@@ -48,11 +53,10 @@
     </div>
     <div id="middle">
       <div class="middle align-right">
-        <div id="left" class="app-welcome align-left">
+        <div id="leftx" class="app-welcome align-left">
       {% block middle %}
       {% endblock %}
         </div>
-        <div id="right" class="app-welcome align-right"></div>
       </div>
     </div>
     <div id="bottom">

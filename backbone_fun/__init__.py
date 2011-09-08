@@ -14,31 +14,11 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'backbone_fun:static')
-    #config.add_route('home', '/')
-    #config.add_route('post','post')
     
     config.add_route('post', 'post/{id:[^/\.]+}')
-    
-    config.add_route('view_wiki','/')
-    config.add_route('view_pages', 'page/')
-    config.add_route('view_page', 'page/{pagename}')
-    config.add_route('add_page', 'page/add_page/{pagename}')
-    config.add_route('edit_page', 'page/{pagename}/edit_page')
 
-    config.add_view('backbone_fun.views.view_wiki', 
-                    route_name='view_wiki')
-    config.add_view('backbone_fun.views.view_pages', 
-                    route_name='view_pages',
-                    renderer='backbone_fun:templates/view.jinja2')
-    config.add_view('backbone_fun.views.view_page', 
-                    route_name='view_page',
-                    renderer='backbone_fun:templates/view.jinja2')
-    config.add_view('backbone_fun.views.add_page', 
-                    route_name='add_page',
-                    renderer='backbone_fun:templates/edit.jinja2')
-    config.add_view('backbone_fun.views.edit_page', 
-                    route_name='edit_page',
-                    renderer='backbone_fun:templates/edit.jinja2')
+    config.add_route('tweet','tweet')   
+    config.add_route('tweet_api','tweet/api/')   
  
     config.scan('backbone_fun')
     return config.make_wsgi_app()

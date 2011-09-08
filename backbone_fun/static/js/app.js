@@ -43,7 +43,7 @@ $(function() {
     tagName : 'li',
     className : 'tweet',
 
-    render : function() {// what is ich???
+    render : function() {
       $(this.el).html(ich.tweetTemplate(this.model.toJSON()));
       return this;
     }
@@ -78,10 +78,11 @@ $(function() {
     // function!  It is all handled by the bound listeners
     createTweet : function() {
       var tweet = this.$('#message').val();
+      var username = this.$('#username').val();
       if(tweet) {
         this.tweets.create({
           message : tweet,
-          username : "Test User"
+          username : username
         });
         this.$('#message').val('');
       }

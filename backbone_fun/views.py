@@ -1,4 +1,6 @@
 import re
+import transaction
+from sqlalchemy.exc import IntegrityError
 
 from docutils.core import publish_parts
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
@@ -8,82 +10,52 @@ from pyramid.response import Response
 from pyramid.view import view_config
 
 from backbone_fun.models import DBSession
-from backbone_fun.models import Page
+from backbone_fun.models import Tweet
 
 # regular expression used to find WikiWords
 wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 @view_config(route_name='post', request_method='GET', renderer='json')
-def show_post_view(request):
-    session = DBSession()
-    pages = session.query(Page).all()
-    print pages
-    list = {}
-    for page in pages:
-        list[page.name] = page.data
-        
-    return dict(pages=list,meta={})
+def posts(request):
+    return dict(pages="nothing",meta={})
 
 @view_config(route_name='post', request_method='DELETE', renderer='json')
 def delete_post_view(request):
     return request.matchdict
 
-#@view_config(route_name='tweet_api', renderer='json')
+@view_config(route_name='tweet', renderer='backbone_fun:templates/post.jinja2')
+def tweet(request):
+    return dict(objects=get_tweets())
 
-def view_wiki(request):
-    return HTTPFound(location = request.route_url('view_page', 
-                                          pagename='FrontPage'))
-def view_pages(request):
+@view_config(route_name='tweet_api', request_method='GET', renderer='json')
+def get_tweet(request):
+    return dict(objects=get_tweets(),meta={})
+
+def get_tweets():
     session = DBSession()
-    pages = session.query(Page).all()
-    return dict(pages=pages)
-      
-def view_page(request):
-    pagename = request.matchdict['pagename']
-    session = DBSession()
-    page = session.query(Page).filter_by(name=pagename).first()
-    if page is None:
-        return HTTPNotFound('No such page')
+    tweets = session.query(Tweet).all()
+    list = []
+    for tweet in tweets:
+        list.append({
+                     "id":tweet.id, 
+                     "username":tweet.username, 
+                     "message":tweet.message,
+                     "timestamp":tweet.timestamp})
+    return list
 
-    def check(match):
-        word = match.group(1)
-        exists = session.query(Page).filter_by(name=word).all()
-        if exists:
-            view_url = route_url('view_page', request, pagename=word)
-            return '<a href="%s">%s</a>' % (view_url, word)
-        else:
-            add_url = route_url('add_page', request, pagename=word)
-            return '<a href="%s">%s</a>' % (add_url, word)
-
-    content = publish_parts(page.data, writer_name='html')['html_body']
-    content = wikiwords.sub(check, content)
-    edit_url = route_url('edit_page', request, pagename=pagename)
-    return dict(page=page, content=content, edit_url=edit_url)
-
-def add_page(request):
-    name = request.matchdict['pagename']
-    if 'form.submitted' in request.params:
+@view_config(route_name='tweet_api', request_method='POST', renderer='json')
+def post_tweet(request):
+    print request.GET.items()
+    print request.POST.items()
+    print request.params.items()
+    try:
+        transaction.begin()
         session = DBSession()
-        body = request.params['body']
-        page = Page(name, body)
-        session.add(page)
-        return HTTPFound(location = route_url('view_page', request,
-                                              pagename=name))
-    save_url = route_url('add_page', request, pagename=name)
-    page = Page('', '')
-    return dict(page=page, save_url=save_url)
-
-def edit_page(request):
-    name = request.matchdict['pagename']
-    session = DBSession()
-    page = session.query(Page).filter_by(name=name).one()
-    if 'form.submitted' in request.params:
-        page.data = request.params['body']
-        session.add(page)
-        return HTTPFound(location = route_url('view_page', request,
-                                              pagename=name))
-    return dict(
-        page=page,
-        save_url = route_url('edit_page', request, pagename=name),
-        )
+        tweet = Tweet(request.POST['username'], request.POST['message'])
+        session.add(tweet)
+        transaction.commit()
+    except IntegrityError:
+        # already created
+        transaction.abort()  
+    return dict(error='nope')
     

@@ -1,1 +1,20 @@
-{ 'id': {{ request.id }} }
+{% extends "backbone_fun:templates/base_page.jinja2" %}
+{% block middle %}
+<div id="title">
+  <div><strong>Backbone.js experimentation with Pyramid</strong></div>
+  <div>Tweet Something Below and watch for it in other browsers:</div>
+</div>
+{% endblock middle %}
+
+{% block bottom %}
+    <div id="app">
+      <div id="input">
+        <label >User: <input id="username" name="username" type="text" /></label><br />
+        <textarea id="message" name="message"></textarea>
+        <button name="tweet" id="tweet" class="tweet">Tweet</button>
+      </div>
+      <h2>Timeline</h2>
+      <ul id="tweets">
+      </ul>
+    </div>
+{% endblock %}

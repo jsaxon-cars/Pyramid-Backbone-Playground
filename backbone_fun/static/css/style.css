@@ -4,16 +4,16 @@ html {
 }
 
 body {
-  width: 720px;
+  width: 960px;
   margin: auto;
   color: #777;
 }
 
-#input {
+#input, #title {
   padding: 1em 2em;
 }
 
-#input strong {
+#input strong, #title strong {
   display: block;
   font-size: 1.5em;
   font-weight: bold;
