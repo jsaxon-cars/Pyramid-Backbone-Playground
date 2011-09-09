@@ -53,7 +53,8 @@ $(function() {
     el : $('#app'),
 
     events : {
-      'click .button' : 'createTweet'
+      'click .button' : 'createTweet',
+      'click .deleteme' : 'deleteTweet'
     },
 
     initialize : function() {
@@ -87,6 +88,11 @@ $(function() {
         this.$('#message').val('');
         window.app.tweets.fetch();
       }
+    },
+
+    deleteTweet : function(event) {
+      alert("DELETE TWEET " + event.target.id.split('_')[1]);
+      window.app.tweets.fetch();
     }
   });
 
