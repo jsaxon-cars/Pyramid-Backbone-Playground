@@ -4,7 +4,6 @@ from sqlalchemy.exc import IntegrityError
 from pyramid.response import Response
 from pyramid.view import view_config
 
-from backbone_fun.models import DBSession
 from backbone_fun.models import Tweet
 
 import json
@@ -22,9 +21,7 @@ def get_tweet(request):
 
 @view_config(route_name='tweet_api', request_method='POST', renderer='json')
 def post_tweet(request):
-    params = request.json_body
-    session = DBSession()
-    tweet = Tweet(params['username'], params['message'])
-    session.add(tweet)
-    return dict(error='nope',params=params)
+    tweet = Tweet(request.json_body['username'], request.json_body['message'])
+    tweet.save()
+    return dict(error='nope')
     

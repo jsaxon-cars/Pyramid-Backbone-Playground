@@ -29,6 +29,11 @@ class Tweet(Base):
         self.message = message
         self.timestamp = datetime.now()
 
+    def save(self):
+        session = DBSession()
+        #import pdb; pdb.set_trace()
+        session.add(self)
+
     @staticmethod
     def get_tweets():
         session = DBSession()
@@ -51,10 +56,9 @@ def initialize_sql(engine):
     
     Base.metadata.create_all(engine)
     try:
-        session = DBSession()
         tweet = Tweet('Fred', 'Yet another tweet for fun')
-        #Why session.add() instead of page.save()???
-        session.add(tweet)
+        tweet.save()
+        # Because we're not in a request, so transactions aren't autocommitted.
         transaction.commit()
     except IntegrityError:
         # already created

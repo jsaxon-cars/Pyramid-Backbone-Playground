@@ -1,3 +1,5 @@
+/* @override http://localhost:6543/static/css/style.css */
+
 html {
   background-color: #eee;
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -8,6 +10,7 @@ body {
   margin: auto;
   color: #777;
 }
+
 
 #input, #title {
   padding: 1em 2em;
@@ -31,27 +34,31 @@ body {
   font-size: 1.25em;
   color: #333;
   background-color: #eee;
-  padding: .25em;
-  margin: .25em 0;
+  padding: .25em 0em;
+  margin: .25em 0em;
+}
+#input .button {
+	padding: 10px 15px;
 }
 
 h2 {
   font-size: 1.5em;
   font-weight: bold;
-  margin: 1em 1.33em;
+  margin: .2em 1.33em .2em;
 }
 
 #tweets {
-  margin: 0 2em;
-  border-top: 1px solid #ccc;
+  margin: 0em 0em;
 }
 
 .tweet {
   font-size: 1.25em;
   color: #333;
-  border: 1px solid #ccc;
-  border-top: 1px solid #fff;
-  padding: .5em;
+  padding: .8em 0em .1em;
+  border-top: solid 1px #CCCCCC	;
+  list-style-image: none;
+  list-style-type: none;
+  list-style-position: inside;
 }
 
 .username {

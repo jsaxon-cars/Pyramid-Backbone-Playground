@@ -35,7 +35,7 @@ $(function() {
       return data.objects;
     },
     comparator : function(tweet) {
-      return -tweet.get("timestamp");
+      return tweet.get("timestamp");
     }
   });
 
@@ -53,7 +53,7 @@ $(function() {
     el : $('#app'),
 
     events : {
-      'click .tweet' : 'createTweet'
+      'click .button' : 'createTweet'
     },
 
     initialize : function() {
@@ -72,14 +72,14 @@ $(function() {
       var view = new TweetView({
         model : tweet
       });
-      this.$('#tweets').append(view.render().el);
+      this.$('#tweets').prepend(view.render().el);
     },
     // Notice that displaying the new tweet isn't even part of this
     // function!  It is all handled by the bound listeners
     createTweet : function() {
       var tweet = this.$('#message').val();
       var username = this.$('#username').val();
-      if(tweet) {
+      if (tweet) {
         this.tweets.create({
           message : tweet,
           username : username
@@ -92,13 +92,20 @@ $(function() {
 
   window.app = new App();
 
+  // Didn't know how to bind this internally like the click since it requires
+  // some information about what's going on.
+  // If it's a return key, submit the tweet...
+  $('#message').bind('keypress', function(event) {
+    if (event.which == 13) {
+      app.createTweet();
+    }
+  }); 
    
-   // I would like to find a better way of doing this...
-   setInterval(
-     function() {
+  // I would like to find a better way of doing this...
+  setInterval(
+    function() {
       window.app.tweets.fetch();
-     },
-     1000
-   );
-  
+    },
+    10000
+  );  
 });

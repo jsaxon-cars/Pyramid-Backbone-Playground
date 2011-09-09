@@ -18,27 +18,25 @@
         href="{{ request.static_url('backbone_fun:static/ie6.css') }}"
         type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
-    <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/style.css') }}">
+  <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ request.static_url('backbone_fun:static/css/style.css') }}">
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-    <script src="http://cachedcommons.org/cache/underscore/1.1.0/javascripts/underscore-min.js"></script>
-    <script src="{{ request.static_url('backbone_fun:static/js/ICanHaz.min.js') }}"></script>
-    <script src="{{ request.static_url('backbone_fun:static/js/backbone-min.js') }}"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+  <script src="http://cachedcommons.org/cache/underscore/1.1.0/javascripts/underscore-min.js"></script>
+  <script src="{{ request.static_url('backbone_fun:static/js/ICanHaz.min.js') }}"></script>
+  <script src="{{ request.static_url('backbone_fun:static/js/backbone-min.js') }}"></script>
 
-   <script>
-      TWEET_API = "/tweet/api/";
-    </script>
+ <script>
+    TWEET_API = "/tweet/api/";
+  </script>
+  {% raw %}
+  <script type="text/html" id="tweetTemplate">
+    <a class="username">{{ username }}</a> - {{ message }}
+    <br /><abbr class="timestamp">{{ timestamp }}</abbr>
+  </script>
+  {% endraw %}
 
-    <script src="{{ request.static_url('backbone_fun:static/js/app.js') }}"></script>
-
-    {% raw %}
-    <script type="text/html" id="tweetTemplate">
-      <a class="username">{{ username }}</a> - {{ message }}
-      <br /><abbr class="timestamp">{{ timestamp }}</abbr>
-    </script>
-    {% endraw %}
-
+  <script src="{{ request.static_url('backbone_fun:static/js/app.js') }}"></script>
 
 </head>
 <body>
