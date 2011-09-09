@@ -91,7 +91,7 @@ $(function() {
     },
 
     deleteTweet : function(event) {
-      alert("DELETE TWEET " + event.target.id.split('_')[1]);
+      alert("Delete Tweet " + event.target.id.split('_')[1]);
       window.app.tweets.fetch();
     }
   });
