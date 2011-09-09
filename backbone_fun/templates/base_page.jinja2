@@ -29,13 +29,9 @@
  <script>
     TWEET_API = "/tweet/api/";
   </script>
-  {% raw %}
-  <script type="text/html" id="tweetTemplate">
-    <div class="deleteme" id="deleteme_{{ id }}">X</div>
-    <a class="username">{{ username }}</a> - {{ message }}
-    <br /><abbr class="timestamp">{{ timestamp }}</abbr>
-  </script>
-  {% endraw %}
+
+{% block templates %}
+{% endblock %}
 
   <script src="{{ request.static_url('backbone_fun:static/js/app.js') }}"></script>
 
