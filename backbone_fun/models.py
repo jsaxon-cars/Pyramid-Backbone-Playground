@@ -55,7 +55,7 @@ def initialize_sql(engine):
         tweet = Tweet('Fred', 'Yet another tweet for fun')
         #Why session.add() instead of page.save()???
         session.add(tweet)
-        session.save()
+        transaction.commit()
     except IntegrityError:
         # already created
         pass
