@@ -56,7 +56,7 @@ def initialize_sql(engine):
     
     Base.metadata.create_all(engine)
     try:
-        tweet = Tweet('Fred', 'Yet another tweet for fun')
+        tweet = Tweet('Kevin', 'Yet another tweet for fun')
         tweet.save()
         # Because we're not in a request, so transactions aren't autocommitted.
         transaction.commit()
