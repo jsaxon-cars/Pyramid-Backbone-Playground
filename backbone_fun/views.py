@@ -14,9 +14,12 @@ def tweet(request):
   return dict(objects=Tweet.get_tweets())
 
 @view_config(route_name='tweet_api', renderer='json')
+@view_config(route_name='tweet_api_id', renderer='json')
 def handle_tweet_rest(request):
   if request.method == "GET":
-    return dict(objects=Tweet.get_tweets(),meta={})
+    if (request.matchdict['id'] == ''):
+      return dict(objects=Tweet.get_tweets(),meta={})
+    return dict(objects=Tweet.get(request.matchdict['id']),meta={})
   if request.method == "DELETE":
     tweet = Tweet.get(request.matchdict['id']) 
     Tweet.delete(tweet)
