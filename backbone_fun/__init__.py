@@ -15,7 +15,7 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'backbone_fun:static')
     config.add_route('tweet','tweet')   
-    config.add_route('tweet_api','tweet/api/')   
+    config.add_route('tweet_api','tweet/api/{id}')   
  
     config.scan('backbone_fun')
 
