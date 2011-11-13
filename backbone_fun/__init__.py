@@ -13,9 +13,45 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     
     config.include('pyramid_jinja2')
+    config.include('pyramid_formalchemy')
+
+    # register an admin UI
+    config.formalchemy_admin('admin', package='backbone_fun')
+
+    # register an admin UI for a single model
+    config.formalchemy_model('tweety', package='backbone_fun', model='backbone_fun.models.Tweet')
+
+    # register custom model listing
+    config.formalchemy_model_view('admin',
+                                  model='backbone_fun.models.Tweet',
+                                  context='pyramid_formalchemy.resources.ModelListing',
+                                  #renderer='templates/tweetlisting.jinja2',
+                                  attr='listing',
+                                  request_method='GET',
+                                  permission='view')
+
+    # register custom model view
+    config.formalchemy_model_view('admin',
+                                  model='backbone_fun.models.Tweet',
+                                  context='pyramid_formalchemy.resources.Model',
+                                  name='',
+                                  #renderer='templates/tweetshow.jinja2',
+                                  attr='show',
+                                  request_method='GET',
+                                  permission='view')
+
+
     config.add_static_view('static', 'backbone_fun:static')
     config.add_route('tweet','tweet')   
     config.add_route('tweet_api','tweet/api/')   
+    
+    #tweens
+    '''
+    config.add_tween(
+      'useless.useless_tween_factory', 
+      over=pyramid.tweens.MAIN,
+      under='useless.useless_tween_factory')
+    '''
  
     config.scan('backbone_fun')
 
