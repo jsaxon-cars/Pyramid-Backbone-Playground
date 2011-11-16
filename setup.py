@@ -10,6 +10,8 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 requires = [
     'pyramid',
     'SQLAlchemy',
+    'pyramid_formalchemy',
+    'fa.jquery',
     'transaction',
     'pyramid_tm',
     'pyramid_debugtoolbar',

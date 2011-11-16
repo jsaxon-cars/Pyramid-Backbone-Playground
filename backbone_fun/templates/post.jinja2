@@ -1,13 +1,13 @@
 {% extends "backbone_fun:templates/base_page.jinja2" %}
 
 {% block templates %}
-  {% raw %}
-  <script type="text/html" id="tweetTemplate">
-    <div class="deleteme" id="deleteme_{{ id }}">X</div>
-    {{ username }} - <a class="username" id="message_{{ id }}">{{ message }}</a>
-    <br /><abbr class="timestamp">{{ timestamp }}</abbr>
-  </script>
-  {% endraw %}
+{% raw %}
+<script type="text/html" id="tweetTemplate">
+  <div class="deleteme" id="deleteme_{{ id }}">X</div>
+  {{ username }} - <a class="username" id="message_{{ id }}">{{ message }}</a>
+  <br /><abbr class="timestamp">{{ timestamp }}</abbr>
+</script>
+{% endraw %}
 {% endblock %}
 
 {% block middle %}
