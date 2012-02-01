@@ -45,6 +45,7 @@ $(function() {
 
     render : function() {
       $(this.el).html(ich.tweetTemplate(this.model.toJSON()));
+      Backbone.ModelBinding.bind(this);
       return this;
     }
   });
