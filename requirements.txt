@@ -11,7 +11,7 @@ SQLAlchemy==0.7.5
 Sphinx==1.1.2
 WebOb==1.2b3
 argparse==1.2.1
--e git+git@github.com:jsaxon-cars/Pyramid-Backbone-Playground.git@916abf593575a062f22b07705ab17c603ec058eb#egg=backbone_fun-dev
+-e git+git@github.com:jsaxon-cars/Pyramid-Backbone-Playground.git@9c6e5cd4eaeb2c5a1cf0a04545ebac91ffc12a67#egg=backbone_fun-dev
 distribute==0.6.24
 docutils==0.8.1
 paster==0.7
