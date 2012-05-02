@@ -17,7 +17,7 @@ def tweet(request):
 @view_config(route_name='tweet_api_id', renderer='json')
 def handle_tweet_rest(request):
   if request.method == "GET":
-    if (request.matchdict['id'] == ''):
+    if ('id' not in request.matchdict):
       return dict(objects=Tweet.get_tweets(),meta={})
     return dict(objects=Tweet.get(request.matchdict['id']),meta={})
   if request.method == "DELETE":
